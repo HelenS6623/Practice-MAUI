@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Practice_MAUI.Views.SignUp"
+             Title="Sign Up">
+    <ScrollView>
+        <VerticalStackLayout
+     Padding="30,0"
+     Spacing="25">
+
+            <Entry
+         x:Name="UsernameInput"
+         Placeholder="Username"
+         MaxLength="15"
+         />
+
+
+            <Entry
+         x:Name="PasswordInput"
+         Placeholder="Password"
+         MaxLength="15"
+         IsPassword="False"
+          />
+
+            <Button
+         x:Name="Done_SignUpButton"
+         BackgroundColor="Purple"
+         Text="Done" 
+         SemanticProperties.Hint="Allows the user to record their details"
+         Clicked="OnDoneClicked"
+         HorizontalOptions="Fill" />
+
+
+            <Label
+         x:Name="ErrorLabelSignUp"
+         Text="" />
+            
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

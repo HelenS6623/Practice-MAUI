@@ -3,39 +3,5 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Practice_MAUI.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
-
-            <Entry
-                x:Name="UsernameInput"
-                Placeholder="Username"
-                MaxLength="15"
-                />
-
-
-            <Entry
-                x:Name="PasswordInput"
-                Placeholder="Password"
-                MaxLength="15"
-                IsPassword="True"
-                 />
-
-            <Button
-                x:Name="LoginButton"
-                BackgroundColor="Purple"
-                Text="Login" 
-                SemanticProperties.Hint="Allows the user to login"
-                Clicked="OnLoginClicked"
-                HorizontalOptions="Fill" />
-
-            <Label
-                x:Name="ErrorLabel"
-                Text="" />
-
-
-        </VerticalStackLayout>
-    </ScrollView>
 
 </ContentPage>
