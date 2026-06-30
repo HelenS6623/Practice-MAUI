@@ -16,7 +16,7 @@ public partial class SignUp : ContentPage
     string _password = " ";
     List<string> _errorMessages = new List<string> { "Username or password empty",
         "Username or password cannot contain spaces", "Username must be longer than 5 characters",
-        "Password must be at least 7 characters", "Unknown characters in username or password" };
+        "Password must be at least 7 characters", "Unknown characters in username or password", "Username already exists" };
     int _errorCode = 10;
     string[] _bannedChars = [";", ";", "(", ")", "=", "#"];
     int _errorCodeChars = 0;
@@ -55,40 +55,46 @@ public partial class SignUp : ContentPage
 
     private bool IsUserValid(string username)
     {
+        string connectionStringMade = DataBase.ConnectionStringer();
         if (username != null)
         {
-            if (username.Length < 5)
+            if (DataBase.UserExists(connectionStringMade, username) == false) // add error code
             {
-                _errorCode = 2;
-                return false;
-            }
-
-            else if (username.Length == 0)
-            { _errorCode = 0; return false; }
-
-            else if (username.Contains(" "))
-            {
-                _errorCode = 1;
-                return false;
-            }
-
-            else
-            {
-                for (int i = 0; i < _bannedChars.Length; i++)
+                if (username.Length < 5)
                 {
-                    if (username.Contains(_bannedChars[i]))
-                    { _errorCodeChars += 1; }
-
-                }
-
-                if (_errorCodeChars > 0)
-                {
-                    _errorCode = 4;
+                    _errorCode = 2;
                     return false;
                 }
 
-                else { return true; }
+                else if (username.Length == 0)
+                { _errorCode = 0; return false; }
+
+                else if (username.Contains(" "))
+                {
+                    _errorCode = 1;
+                    return false;
+                }
+
+                else
+                {
+                    for (int i = 0; i < _bannedChars.Length; i++)
+                    {
+                        if (username.Contains(_bannedChars[i]))
+                        { _errorCodeChars += 1; }
+
+                    }
+
+                    if (_errorCodeChars > 0)
+                    {
+                        _errorCode = 4;
+                        return false;
+                    }
+
+                    else { return true; }
+                }
             }
+
+            else { _errorCode = 5; return false; }
         }
 
         else

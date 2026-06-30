@@ -6,8 +6,8 @@ public partial class LogIn : ContentPage
 	{
 		InitializeComponent();
 
-        string connectionString = DataBase.ConnectionStringer();
-        DataBase.CreateTable(connectionString);
+        string _connectionStringMade = DataBase.ConnectionStringer();
+        DataBase.CreateTable(_connectionStringMade);
 
     }
 
@@ -19,14 +19,16 @@ public partial class LogIn : ContentPage
 
     
 
-    private void OnLoginClicked(object sender, EventArgs e)
+    private async void OnLoginClicked(object sender, EventArgs e)
     {
+        string _connectionStringMade = DataBase.ConnectionStringer();
         ErrorLabel.Text = "";
         _username = UsernameInput.Text;
         _password = PasswordInput.Text;
-        if (IsLoginValid("bob", _username, _password) == true)
+        if (IsLoginValid(_connectionStringMade, _username, _password) == true)
         {
             LoginButton.Text = "Logged in";
+            await Shell.Current.GoToAsync(nameof(Views.MainPage1));
         }
         else
         {
@@ -45,10 +47,15 @@ public partial class LogIn : ContentPage
     {
         if (username != null)
         {
-            if (DataBase.UserExists(connectionString, username) == false) { return true; }
+            if (DataBase.UserExists(connectionString, username) == true)
+            { 
+                if (DataBase.PasswordCorrect(connectionString, username, password))
+                { return true; }
+                else { _errorMessageText = "User not found. Please check your details."; return false; }
+            }
             else
             {
-                _errorMessageText = "User already exists";
+                _errorMessageText = "User not found. Please check your details.";
                 return false;
             }
         }

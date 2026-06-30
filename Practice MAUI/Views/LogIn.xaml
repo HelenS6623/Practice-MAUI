@@ -4,8 +4,6 @@
              x:Class="Practice_MAUI.Views.LogIn"
              Title="Log In">
 
-
-
     <ScrollView>
         <VerticalStackLayout
          Padding="30,0"

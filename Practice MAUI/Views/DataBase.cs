@@ -14,7 +14,7 @@ namespace Practice_MAUI.Views
         public static string ConnectionStringer()
 
         {
-            string dbPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../helen.db")); // where to find database
+            string dbPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../maui.db")); // where to find database
             SqliteConnectionStringBuilder connectionsStringBuilder = new SqliteConnectionStringBuilder // builds connection string so database can be reached
             {
                 DataSource = dbPath // where the connection is going to
@@ -96,13 +96,46 @@ namespace Practice_MAUI.Views
         {
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {
+                int i = 0;
                 connection.Open();
                 SqliteCommand command = connection.CreateCommand();
                 command.CommandText = "SELECT * FROM TblUsers WHERE name = @username;";
+                command.Parameters.AddWithValue("username", username);
                 command.ExecuteNonQuery();
 
-                int userCount = (int)command.ExecuteScalar();
-                if (userCount > 0) { return true; } else { return false; }
+                SqliteDataReader tempString = command.ExecuteReader();
+
+                while (tempString.Read()) { i += 1; }
+
+                if (i > 0) { return true; }
+
+                else { return false; }
+
+                //int userCount = (int)command.ExecuteScalar();
+                //if (userCount > 0) { return true; } else { return false; }
+            }
+        }
+
+        public static bool PasswordCorrect(string connectionString, string username, string password)
+        {
+            int i = 0;
+            using (SqliteConnection connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                SqliteCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM TblUsers WHERE name = @username AND password = @password;";
+                command.Parameters.AddWithValue("username", username);
+                command.Parameters.AddWithValue("password", password);
+                command.ExecuteNonQuery();
+
+                SqliteDataReader tempString = command.ExecuteReader();
+
+                while (tempString.Read()) { i += 1; }
+                if (i > 0)
+                {
+                    return true;
+                }
+                else { return false; }
             }
         }
     }
