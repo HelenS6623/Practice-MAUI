@@ -8,6 +8,7 @@
 
             Routing.RegisterRoute(nameof(Views.SignUp), typeof(Views.SignUp));
             Routing.RegisterRoute(nameof(Views.LogIn), typeof(Views.LogIn));
+            Routing.RegisterRoute(nameof(Views.MainPage1), typeof(Views.MainPage1));
         }
     }
 }

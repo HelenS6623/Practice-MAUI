@@ -58,6 +58,8 @@ public partial class SignUp : ContentPage
         string connectionStringMade = DataBase.ConnectionStringer();
         if (username != null)
         {
+            _errorCodeChars = 0;    
+
             if (DataBase.UserExists(connectionStringMade, username) == false) // add error code
             {
                 if (username.Length < 5)
@@ -91,6 +93,7 @@ public partial class SignUp : ContentPage
                     }
 
                     else { return true; }
+
                 }
             }
 

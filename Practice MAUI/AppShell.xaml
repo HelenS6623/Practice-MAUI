@@ -20,6 +20,11 @@
             ContentTemplate="{DataTemplate Views:SignUp}"
             Route="SignUpRoute" />
 
+    <ShellContent
+        Title="MainPage1"
+        ContentTemplate="{DataTemplate Views:MainPage1}"
+        Route="MainPage1Route" />
+
 
 
 
